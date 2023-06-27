@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static lt.techin.crud.service.FinderClass.findTechnic;
 
 @Service
 public class TechnicService {
@@ -58,8 +57,8 @@ public class TechnicService {
 
     public Technic update(Long id, Technic technic) {
         validateInputWithInjectedValidator(technic);
-        Technic existing = findTechnic(id);
-
+        Technic existing = repository.findById(id)
+                .orElseThrow(() -> new CustomValidationException("Technic doesn't exist", "id", "Technic not found", id.toString()));
         existing.setName(technic.getName());
         existing.setSurname(technic.getSurname());
         existing.setSpeciality(technic.getSpeciality());
@@ -80,8 +79,8 @@ public class TechnicService {
     }
 
     public Technic addAReview(Long id, Double score){
-        Technic existing = findTechnic(id);
-
+        Technic existing = repository.findById(id)
+                .orElseThrow(() -> new CustomValidationException("Technic doesn't exist", "id", "Technic not found", id.toString()));
         Double newScore = existing.getReview() + score;
         existing.setReview(newScore);
 

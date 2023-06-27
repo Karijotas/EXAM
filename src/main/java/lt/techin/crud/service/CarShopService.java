@@ -17,9 +17,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static lt.techin.crud.api.dto.mapper.CarShopMapper.toCarShopEntityDto;
-import static lt.techin.crud.service.FinderClass.findCarShop;
-
 @Service
 @Slf4j
 public class CarShopService {
