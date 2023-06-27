@@ -9,3 +9,7 @@ Frontend:
 (* npm install @mui/material @emotion/react @emotion/styled react-router-dom)
 2 Run the command: npm start
 
+Access the app with http://localhost:3000/
+
+
+In case of failure contact the developer:)

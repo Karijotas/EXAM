@@ -1,6 +1,8 @@
 package lt.techin.crud.service;
 
 import lt.techin.crud.config.exception.CustomValidationException;
+import lt.techin.crud.dao.CarShopRepository;
+import lt.techin.crud.dao.CarShopTechnicsRepository;
 import lt.techin.crud.dao.TechnicRepository;
 import lt.techin.crud.model.Technic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,14 @@ public class TechnicService {
     private final TechnicRepository repository;
 
     private final Validator validator;
+    private final CarShopTechnicsRepository carShopTechnicsRepository;
 
     @Autowired
-    public TechnicService(TechnicRepository repository, Validator validator) {
+    public TechnicService(TechnicRepository repository, Validator validator,
+                          CarShopTechnicsRepository carShopTechnicsRepository) {
         this.repository = repository;
         this.validator = validator;
+        this.carShopTechnicsRepository = carShopTechnicsRepository;
     }
 
     void validateInputWithInjectedValidator(Technic technic) {
@@ -68,7 +73,9 @@ public class TechnicService {
     }
 
     public Boolean deleteById(Long id) {
+
         try {
+            carShopTechnicsRepository.deleteByTechnic_Id(id);
             repository.deleteById(id);
             return true;
         } catch (EmptyResultDataAccessException e) {
