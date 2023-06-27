@@ -6,9 +6,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import ResponsiveAppBar from './ResponsiveAppBar';
 import { useState, useEffect } from "react";
 import './App.css';
+import MenuBar from './MenuBar';
 
 
 
@@ -17,7 +17,7 @@ export default function DenseTable() {
     const [carShops, setCarShops] = useState([]);
 
     const fetchCarShops = () => {
-        fetch('/api/v1/car-shop')
+        fetch('/api/v1/carshop')
             .then((response) => response.json())
             .then((jsonResponse) => setCarShops(jsonResponse));
     };
@@ -30,8 +30,8 @@ export default function DenseTable() {
 
     return (
         <div>
-            <ResponsiveAppBar />
-            <TableContainer className='klas' component={Paper} sx={{ width: 600}}>
+            <MenuBar />
+            <TableContainer className='klas' component={Paper} sx={{ width: 600 }}>
                 <Table aria-label="a dense table">
                     <TableHead>
                         <TableRow>
@@ -43,7 +43,7 @@ export default function DenseTable() {
                     <TableBody>
                         {carShops.map((carShop) => (
                             <TableRow
-                                key={carShop.id}
+                                key={carShop.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">

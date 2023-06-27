@@ -19,7 +19,7 @@ import static lt.techin.crud.api.dto.mapper.CarShopMapper.toCarShopEntityDto;
 import static org.springframework.http.ResponseEntity.ok;
 
 @Controller
-@RequestMapping("/api/v1/car-shop")
+@RequestMapping("/api/v1/carshop")
 @Validated
 @Slf4j
 public class CarShopController {
