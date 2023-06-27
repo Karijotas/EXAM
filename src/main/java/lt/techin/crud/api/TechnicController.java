@@ -66,4 +66,10 @@ public class TechnicController {
             return ResponseEntity.noContent().build();
         }
     }
+
+    @PatchMapping("/{technicId}/{score}")
+    public ResponseEntity<Technic> addAReview(@PathVariable Long technicId, @PathVariable Double score) {
+        log.info("Trying to addAReview to technic by id: {}", technicId);
+        return ok(service.addAReview(technicId, score));
+    }
 }

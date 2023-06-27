@@ -78,4 +78,13 @@ public class TechnicService {
             return false;
         }
     }
+
+    public Technic addAReview(Long id, Double score){
+        Technic existing = findTechnic(id);
+
+        Double newScore = existing.getReview() + score;
+        existing.setReview(newScore);
+
+        return repository.save(existing);
+    }
 }
