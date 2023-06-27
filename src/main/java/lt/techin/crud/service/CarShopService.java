@@ -3,6 +3,7 @@ package lt.techin.crud.service;
 import lombok.extern.slf4j.Slf4j;
 import lt.techin.crud.config.exception.CustomValidationException;
 import lt.techin.crud.dao.CarShopRepository;
+import lt.techin.crud.dao.CarShopTechnicsRepository;
 import lt.techin.crud.dao.TechnicRepository;
 import lt.techin.crud.model.CarShop;
 import lt.techin.crud.model.Technic;
@@ -22,18 +23,21 @@ import static lt.techin.crud.service.FinderClass.findCarShop;
 @Service
 @Slf4j
 public class CarShopService {
+    private final CarShopTechnicsRepository carShopTechnicsRepository;
 
-   private final CarShopRepository carShopRepository;
+    private final CarShopRepository carShopRepository;
    private final TechnicRepository technicRepository;
 
     private final Validator validator;
 
     @Autowired
-    public CarShopService(CarShopRepository carShopRepository, TechnicRepository technicRepository, Validator validator) {
+    public CarShopService(CarShopRepository carShopRepository, TechnicRepository technicRepository, Validator validator,
+                          CarShopTechnicsRepository carShopTechnicsRepository) {
         this.carShopRepository = carShopRepository;
         this.technicRepository = technicRepository;
 
         this.validator = validator;
+        this.carShopTechnicsRepository = carShopTechnicsRepository;
     }
 
     void validateInputWithInjectedValidator(CarShop carShop) {
@@ -87,8 +91,8 @@ public class CarShopService {
         }
     }
 
-    public List<Technic> getAllTechnicsInShopByCarShopId(Long carShopId) {
+    public Set<Technic> getAllTechnicsInShopByCarShopId(Long carShopId) {
 
-        return technicRepository.findByCarShopId(carShopId);
+        return carShopTechnicsRepository.findByCarShop_Id(carShopId);
     }
 }

@@ -54,7 +54,7 @@ public class CarShopController {
     }
     @GetMapping(value = "/{carShopId}/technics", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<Technic> getAllTechnicsInShop(@PathVariable Long carShopId) {
+    public Set<Technic> getAllTechnicsInShop(@PathVariable Long carShopId) {
         return service.getAllTechnicsInShopByCarShopId(carShopId);
     }
 

@@ -14,12 +14,11 @@ import { useParams } from 'react-router-dom';
 
 
 export default function ListTechnics() {
-    const params = useParams();
 
     const [technics, setTechnics] = useState([]);
 
     const fetchTechnic = () => {
-        fetch(`/api/v1/carshop/${params.id}/technics`)
+        fetch(`/api/v1/technic/`)
             .then((response) => response.json())
             .then((jsonResponse) => setTechnics(jsonResponse));
     };

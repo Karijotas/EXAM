@@ -20,7 +20,7 @@ root.render(
       
       <Route path='/' element={<MenuBar />} />
       <Route path='/list' element={<DenseTable/>}/>
-      <Route path='/list/shop/:id' element={<ListTechnics/>}/>
+      <Route path='/list/technics' element={<ListTechnics/>}/>
       <Route path='/create' element={<FormPropsTextFields/>}/>
 
       </Routes>

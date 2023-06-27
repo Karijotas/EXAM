@@ -46,11 +46,12 @@ function MenuBar() {
                     >
                         Servisai
                     </Typography>
+                
                     <Typography
                         variant="h6"
                         noWrap
                         component="a"
-                        href='#/create'
+                        href='#/list/technics'
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -61,7 +62,7 @@ function MenuBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        CREATE
+                        Mechanikai
                     </Typography>
                    
                 </Toolbar>

@@ -39,7 +39,6 @@ export default function DenseTable() {
                             <TableCell>Servisas</TableCell>
                             <TableCell> Adresas</TableCell>
                             <TableCell> Savininkas</TableCell>
-                            <TableCell>Mechanikai</TableCell>
 
 
                         </TableRow>
@@ -55,9 +54,7 @@ export default function DenseTable() {
                                 </TableCell>
                                 <TableCell >{carShop.adress}</TableCell>
                                 <TableCell> {carShop.owner}</TableCell>
-                                <Button
-                                    href={"#/list/shop/" + carShop.id}
-                             >List</Button>
+                            
                              {console.log(carShop.id)}
 
                             </TableRow>))}
