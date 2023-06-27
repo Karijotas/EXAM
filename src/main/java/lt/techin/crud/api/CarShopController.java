@@ -3,7 +3,10 @@ package lt.techin.crud.api;
 import lombok.extern.slf4j.Slf4j;
 import lt.techin.crud.api.dto.carShop.CarShopDto;
 import lt.techin.crud.api.dto.carShop.CarShopEntityDto;
+import lt.techin.crud.api.dto.technic.TechnicEntityDto;
+import lt.techin.crud.dao.TechnicRepository;
 import lt.techin.crud.model.CarShop;
+import lt.techin.crud.model.Technic;
 import lt.techin.crud.service.CarShopService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 import static lt.techin.crud.api.dto.mapper.CarShopMapper.toCarShop;
 import static lt.techin.crud.api.dto.mapper.CarShopMapper.toCarShopEntityDto;
@@ -23,11 +27,14 @@ import static org.springframework.http.ResponseEntity.ok;
 @Validated
 @Slf4j
 public class CarShopController {
+    private final TechnicRepository technicRepository;
 
     private final CarShopService service;
 
-    public CarShopController(CarShopService service) {
+    public CarShopController(CarShopService service,
+                             TechnicRepository technicRepository) {
         this.service = service;
+        this.technicRepository = technicRepository;
     }
 
     @GetMapping
@@ -44,6 +51,11 @@ public class CarShopController {
         return carShopOptional
                 .map(carShop -> ok(toCarShopEntityDto(carShop)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    @GetMapping(value = "/{carShopId}/technics", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public List<Technic> getAllTechnicsInShop(@PathVariable Long carShopId) {
+        return service.getAllTechnicsInShopByCarShopId(carShopId);
     }
 
     @PostMapping( consumes = {MediaType.APPLICATION_JSON_VALUE})

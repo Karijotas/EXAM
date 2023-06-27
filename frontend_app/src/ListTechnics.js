@@ -9,21 +9,22 @@ import Paper from '@mui/material/Paper';
 import { useState, useEffect } from "react";
 import './App.css';
 import MenuBar from './MenuBar';
-import { Button } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
 
 
-export default function DenseTable() {
+export default function ListTechnics() {
+    const params = useParams();
 
-    const [carShops, setCarShops] = useState([]);
+    const [technics, setTechnics] = useState([]);
 
-    const fetchCarShops = () => {
-        fetch('/api/v1/carshop')
+    const fetchTechnic = () => {
+        fetch(`/api/v1/carshop/${params.id}/technics`)
             .then((response) => response.json())
-            .then((jsonResponse) => setCarShops(jsonResponse));
+            .then((jsonResponse) => setTechnics(jsonResponse));
     };
     useEffect(() => {
-        fetchCarShops();
+        fetchTechnic();
     }, []
     );
 
@@ -36,34 +37,31 @@ export default function DenseTable() {
                 <Table aria-label="a dense table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Servisas</TableCell>
-                            <TableCell> Adresas</TableCell>
+                            <TableCell>Vardas</TableCell>
+                            <TableCell> Pavardė</TableCell>
                             <TableCell> Savininkas</TableCell>
-                            <TableCell>Mechanikai</TableCell>
+                            <TableCell>Įvertinti</TableCell>
 
 
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {carShops.map((carShop) => (
+                        {technics.map((technic) => (
                             <TableRow
-                                key={carShop.id}
+                                key={technic.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {carShop.name}
+                                    {technic.name}
                                 </TableCell>
-                                <TableCell >{carShop.adress}</TableCell>
-                                <TableCell> {carShop.owner}</TableCell>
-                                <Button
-                                    href={"#/list/shop/" + carShop.id}
-                             >List</Button>
-                             {console.log(carShop.id)}
+                                {/* <TableCell >{carShop.adress}</TableCell>
+                                <TableCell> {carShop.owner}</TableCell> */}
+                                {/* <Button>List</Button> */}
 
                             </TableRow>))}
 
-                </TableBody>
-            </Table>
-        </TableContainer></div >
+                    </TableBody>
+                </Table>
+            </TableContainer></div>
     );
 }

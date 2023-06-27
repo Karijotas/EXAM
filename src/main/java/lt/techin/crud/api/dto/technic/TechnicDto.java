@@ -15,5 +15,4 @@ public class TechnicDto {
     private String speciality;
     private String city;
     private Double review;
-
 }

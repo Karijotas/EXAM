@@ -5,6 +5,7 @@ import lt.techin.crud.config.exception.CustomValidationException;
 import lt.techin.crud.dao.CarShopRepository;
 import lt.techin.crud.dao.TechnicRepository;
 import lt.techin.crud.model.CarShop;
+import lt.techin.crud.model.Technic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static lt.techin.crud.api.dto.mapper.CarShopMapper.toCarShopEntityDto;
 import static lt.techin.crud.service.FinderClass.findCarShop;
 
 @Service
@@ -49,6 +51,10 @@ public class CarShopService {
         return carShopRepository.findById(id);
     }
 
+    public Set<Technic> getTechnicsByShopId(Long id) {
+        return carShopRepository.findById(id).get().getTechnics();
+    }
+
     public CarShop create(CarShop carShop) {
         var newShop = new CarShop();
 
@@ -79,5 +85,10 @@ public class CarShopService {
         } catch (EmptyResultDataAccessException e) {
             return false;
         }
+    }
+
+    public List<Technic> getAllTechnicsInShopByCarShopId(Long carShopId) {
+
+        return technicRepository.findByCarShopId(carShopId);
     }
 }
