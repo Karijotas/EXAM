@@ -87,7 +87,7 @@ public class CarShopController {
             return ResponseEntity.noContent().build();
         }
     }
-    
+
     //For adding technic to a car shop
     @PostMapping("/{carShopId}/add/{technicId}")
     public ResponseEntity<CarShopEntityDto> addTechnicToCarShop(@PathVariable Long carShopId, @Valid @PathVariable Long technicId) {
