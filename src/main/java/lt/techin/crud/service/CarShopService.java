@@ -71,10 +71,9 @@ public class CarShopService {
     }
 
     public CarShop update(Long id, CarShop carShop) {
-        validateInputWithInjectedValidator(carShop);
-        CarShop existing = findCarShop(id);
+        CarShop existing = carShopRepository.findById(id)
+                .orElseThrow(() -> new CustomValidationException("CarShop doesn't exist", "id", "CarShop not found", id.toString()));
 
-        existing.setId(carShop.getId());
         existing.setName(carShop.getName());
         existing.setAdress(carShop.getAdress());
         existing.setOwner(carShop.getOwner());

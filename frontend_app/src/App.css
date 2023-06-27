@@ -1,7 +1,7 @@
-body {
+body {  
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 5vmin;
-  text-align: center;
 }

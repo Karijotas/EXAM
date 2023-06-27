@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import { useState, useEffect } from "react";
 import './App.css';
 import MenuBar from './MenuBar';
-import { Button } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 
 
 
@@ -27,18 +27,27 @@ export default function DenseTable() {
     }, []
     );
 
+    const deleteCarShop = (id) => {
+        fetch("/api/v1/carshop/delete/" + id, {
+          method: "DELETE",
+        })
+        .then(fetchCarShops());
+      };
 
 
     return (
         <div>
             <MenuBar />
-            <TableContainer className='klas' component={Paper} sx={{ width: 600 }}>
+          
+            <TableContainer className='klas' component={Paper} sx={{ width: 1200 }}>
                 <Table aria-label="a dense table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Servisas</TableCell>
                             <TableCell> Adresas</TableCell>
                             <TableCell> Savininkas</TableCell>
+                            <TableCell> Taisyti</TableCell>
+                            <TableCell> Trinti</TableCell>
 
 
                         </TableRow>
@@ -54,13 +63,33 @@ export default function DenseTable() {
                                 </TableCell>
                                 <TableCell >{carShop.adress}</TableCell>
                                 <TableCell> {carShop.owner}</TableCell>
+                                <TableCell><Button href={'#/list/carshop/' + carShop.id}>Taisyti</Button></TableCell>
+                                <TableCell><Button onClick={() => deleteCarShop(carShop.id)} color='error'>Trinti</Button></TableCell>
+
                             
-                             {console.log(carShop.id)}
 
                             </TableRow>))}
 
                 </TableBody>
             </Table>
-        </TableContainer></div >
+        </TableContainer>
+        <Container>***</Container>
+        <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        href='#/create'
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'primary',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        Pridėti naują servisą
+                    </Typography></div >
     );
 }

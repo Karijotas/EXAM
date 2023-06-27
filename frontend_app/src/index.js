@@ -7,8 +7,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import DenseTable from './List';
 import MenuBar from './MenuBar';
-import FormPropsTextFields from './Create';
 import ListTechnics from './ListTechnics';
+import CreateCarShop from './CreateCarShop';
+import CreateMechanic from './CreateMechanic';
+import UpdateCarShop from './UpdateCarShop';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,7 +23,10 @@ root.render(
       <Route path='/' element={<MenuBar />} />
       <Route path='/list' element={<DenseTable/>}/>
       <Route path='/list/technics' element={<ListTechnics/>}/>
-      <Route path='/create' element={<FormPropsTextFields/>}/>
+      <Route path='/create' element={<CreateCarShop/>}/>
+      <Route path='/create/technics' element={<CreateMechanic/>}/>
+      <Route path='/list/carshop/:id' element={<UpdateCarShop/>}/>
+
 
       </Routes>
     </HashRouter>

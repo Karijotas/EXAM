@@ -8,9 +8,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -26,6 +24,8 @@ public class Technic {
     private String surname;
     private String speciality;
     private String city;
+    @Max(value = 5)
+    @Min(value = 0)
     private Double review;
 
     @Transient
