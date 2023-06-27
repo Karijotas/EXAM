@@ -19,7 +19,7 @@ import static lt.techin.crud.api.dto.mapper.CarShopMapper.toCarShopEntityDto;
 import static org.springframework.http.ResponseEntity.ok;
 
 @Controller
-@RequestMapping("/api/v1/carshop")
+@RequestMapping("/api/v1/car-shop")
 @Validated
 @Slf4j
 public class CarShopController {
@@ -46,7 +46,7 @@ public class CarShopController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping(value = "/carShop/", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping( consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public ResponseEntity<CarShop> create(@Valid @RequestBody CarShopEntityDto carShopEntityDto) {
         return ok(service.create(toCarShop(carShopEntityDto)));
