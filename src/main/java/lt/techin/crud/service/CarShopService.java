@@ -6,6 +6,7 @@ import lt.techin.crud.dao.CarShopRepository;
 import lt.techin.crud.dao.CarShopTechnicsRepository;
 import lt.techin.crud.dao.TechnicRepository;
 import lt.techin.crud.model.CarShop;
+import lt.techin.crud.model.CarShopTechnics;
 import lt.techin.crud.model.Technic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -85,6 +86,22 @@ public class CarShopService {
         } catch (EmptyResultDataAccessException e) {
             return false;
         }
+    }
+    //Adding technic to a car shop
+    public CarShop addTechnicToCarShop(Long carShopId, Long technicId) {
+        var existingCarShop = carShopRepository.findById(carShopId)
+                .orElseThrow(() -> new CustomValidationException("CarShop does not exist",
+                        "id", "CarShop not found", carShopId.toString()));
+
+        var existingTechnic = technicRepository.findById(technicId)
+                .orElseThrow(() -> new CustomValidationException("Technic does not exist",
+                "id", "Technic not found", technicId.toString()));
+
+        Set<Technic> existingTechnicList = existingCarShop.getTechnics();
+        existingTechnicList.add(existingTechnic);
+        existingCarShop.setTechnics(existingTechnicList);
+
+        return carShopRepository.save(existingCarShop);
     }
 
     public Set<Technic> getAllTechnicsInShopByCarShopId(Long carShopId) {

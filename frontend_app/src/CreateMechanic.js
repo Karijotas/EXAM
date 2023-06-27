@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useState } from 'react';
 import MenuBar from './MenuBar';
+import { useEffect } from 'react';
 
 const JSON_HEADERS = {
     "Content-Type": "application/json",
@@ -14,6 +15,7 @@ export default function CreateMechanic() {
     const [surname, setSurname] = useState("");
     const [speciality, setSpeciality] = useState("");
     const [city, setCity] = useState("");
+    const [carShop, setCarShop] = useState("");
     
 
     const create = () => {
@@ -29,6 +31,18 @@ export default function CreateMechanic() {
         })
         // .then(applyResult);
     };
+
+    const [carShops, setCarShops] = useState([]);
+
+    const fetchCarShops = () => {
+        fetch('/api/v1/carshop')
+            .then((response) => response.json())
+            .then((jsonResponse) => setCarShops(jsonResponse));
+    };
+    useEffect(() => {
+        fetchCarShops();
+    }, []
+    );
     return (
         <div>
             <MenuBar />
@@ -67,6 +81,20 @@ export default function CreateMechanic() {
                     onChange={(e) => setCity(e.target.value)}
 
                 />
+                <FormControl fullWidth>
+  <InputLabel id="servisas">Age</InputLabel>
+  <Select
+    labelId="servisas"
+    id="simple-select"
+    // value={age}
+    label="Age"
+    // onChange={handleChange}
+  >
+    <MenuItem value={10}>Ten</MenuItem>
+    <MenuItem value={20}>Twenty</MenuItem>
+    <MenuItem value={30}>Thirty</MenuItem>
+  </Select>
+</FormControl>
             </Box><Button type='submit'
                 onClick={create}
                 variant='contained'>Sukurti</Button></div>

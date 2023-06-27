@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import lt.techin.crud.api.dto.carShop.CarShopDto;
 import lt.techin.crud.api.dto.carShop.CarShopEntityDto;
 import lt.techin.crud.api.dto.technic.TechnicEntityDto;
+import lt.techin.crud.dao.CarShopRepository;
 import lt.techin.crud.dao.TechnicRepository;
 import lt.techin.crud.model.CarShop;
 import lt.techin.crud.model.Technic;
@@ -27,14 +28,17 @@ import static org.springframework.http.ResponseEntity.ok;
 @Validated
 @Slf4j
 public class CarShopController {
+    private final CarShopRepository carShopRepository;
     private final TechnicRepository technicRepository;
 
     private final CarShopService service;
 
     public CarShopController(CarShopService service,
-                             TechnicRepository technicRepository) {
+                             TechnicRepository technicRepository,
+                             CarShopRepository carShopRepository) {
         this.service = service;
         this.technicRepository = technicRepository;
+        this.carShopRepository = carShopRepository;
     }
 
     @GetMapping
@@ -52,13 +56,14 @@ public class CarShopController {
                 .map(carShop -> ok(toCarShopEntityDto(carShop)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
     @GetMapping(value = "/{carShopId}/technics", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Set<Technic> getAllTechnicsInShop(@PathVariable Long carShopId) {
         return service.getAllTechnicsInShopByCarShopId(carShopId);
     }
 
-    @PostMapping( consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public ResponseEntity<CarShop> create(@Valid @RequestBody CarShopEntityDto carShopEntityDto) {
         return ok(service.create(toCarShop(carShopEntityDto)));
@@ -81,6 +86,15 @@ public class CarShopController {
         } else {
             return ResponseEntity.noContent().build();
         }
+    }
+    
+    //For adding technic to a car shop
+    @PostMapping("/{carShopId}/add/{technicId}")
+    public ResponseEntity<CarShopEntityDto> addTechnicToCarShop(@PathVariable Long carShopId, @Valid @PathVariable Long technicId) {
+
+        var updatedCarShop = service.addTechnicToCarShop(carShopId, technicId);
+
+        return ok(toCarShopEntityDto(updatedCarShop));
     }
 
 }

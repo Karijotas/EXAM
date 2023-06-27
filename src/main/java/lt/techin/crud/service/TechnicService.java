@@ -4,6 +4,8 @@ import lt.techin.crud.config.exception.CustomValidationException;
 import lt.techin.crud.dao.CarShopRepository;
 import lt.techin.crud.dao.CarShopTechnicsRepository;
 import lt.techin.crud.dao.TechnicRepository;
+import lt.techin.crud.model.CarShop;
+import lt.techin.crud.model.CarShopTechnics;
 import lt.techin.crud.model.Technic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -55,9 +57,10 @@ public class TechnicService {
         newTechnic.setCity(technic.getCity());
         newTechnic.setReview(technic.getReview());
 
-
         return repository.save(newTechnic);
     }
+
+
 
     public Technic update(Long id, Technic technic) {
         Technic existing = repository.findById(id)
