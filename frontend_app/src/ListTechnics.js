@@ -86,7 +86,7 @@ export default function ListTechnics() {
                                 /><Button
                                     onClick={console.log(active, review)}
                                 >Pateikti</Button></TableCell>
-                                <TableCell><Button>Taisyti</Button></TableCell>
+                                <TableCell><Button href={'#/list/technic/' + technic.id}>Taisyti</Button></TableCell>
                                 <TableCell><Button onClick={() => deleteTechnic(technic.id)} color='error'>Trinti</Button></TableCell>
 
                             </TableRow>))}

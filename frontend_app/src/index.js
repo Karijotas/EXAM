@@ -11,6 +11,7 @@ import ListTechnics from './ListTechnics';
 import CreateCarShop from './CreateCarShop';
 import CreateMechanic from './CreateMechanic';
 import UpdateCarShop from './UpdateCarShop';
+import UpdateMechanic from './UpdateMechanic';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,6 +27,8 @@ root.render(
       <Route path='/create' element={<CreateCarShop/>}/>
       <Route path='/create/technics' element={<CreateMechanic/>}/>
       <Route path='/list/carshop/:id' element={<UpdateCarShop/>}/>
+      <Route path='/list/technic/:id' element={<UpdateMechanic/>}/>
+
 
 
       </Routes>

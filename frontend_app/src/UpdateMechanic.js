@@ -10,37 +10,42 @@ import { useEffect } from 'react';
 const JSON_HEADERS = {
     "Content-Type": "application/json",
 };
-export default function UpdateCarShop() {
+export default function UpdateMechanic() {
     const params = useParams();
 
+
     const [name, setName] = useState("");
-    const [adress, setAdress] = useState("");
-    const [owner, setOwner] = useState("");
-
-    const[carshops, setCarShops] = useState({
-        name: "", 
-        adress: "",
-        owner: "",
-    })
-
-    useEffect(() => {
-        fetch('/api/v1/carshop/' + params.id)
-            .then((response) => response.json())
-            .then((jsonResponse) => setCarShops(jsonResponse));
-    }, []);
+    const [surname, setSurname] = useState("");
+    const [speciality, setSpeciality] = useState("");
+    const [city, setCity] = useState("");
 
     const update = () => {
-        fetch("/api/v1/carshop/" + params.id, {
+        fetch("/api/v1/technic/" + params.id, {
             method: "PATCH",
             headers: JSON_HEADERS,
             body: JSON.stringify({
                 name,
-                adress,
-                owner,
+                surname,
+                speciality,
+                city,
             }),
         })
-        // .then(applyResult);
     };
+
+
+    const [technics, setTechnics] = useState({
+        name: "",
+        surname: "",
+        speciality: "",
+        city: "",
+    })
+
+    useEffect(() => {
+        fetch('/api/v1/technic/' + params.id)
+            .then((response) => response.json())
+            .then((jsonResponse) => setTechnics(jsonResponse));
+    }, []);
+
     return (
         <div>
             <MenuBar />PRIVALOMI VISI LAUKAI
@@ -52,31 +57,38 @@ export default function UpdateCarShop() {
                 noValidate
                 autoComplete="off"
             >
-                <TextField
+              <TextField
                     required
                     id="outlined"
-                    label={carshops.name}
+                    label={technics.name}
                     value={name}
-                    onChange={(e) => setName(e.target.value) }
+                    onChange={(e) => setName(e.target.value)}
 
                 />
                 <TextField
                     required
                     id="outlined"
-                    label={carshops.adress}
-                    value={adress}
-                    onChange={(e) => setAdress(e.target.value)}
+                    label={technics.surname}
+                    value={surname}
+                    onChange={(e) => setSurname(e.target.value)}
 
                 />
                 <TextField
                     required
                     id="outlined"
-                    label={carshops.owner}
-                    value={owner}
-                    onChange={(e) => setOwner(e.target.value)}
+                    label={technics.speciality}
+                    value={speciality}
+                    onChange={(e) => setSpeciality(e.target.value)}
+                />
+
+                <TextField
+                    required
+                    id="outlined"
+                    label={technics.city}
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
 
                 />
-                {console.log(name, adress, owner)}
             </Box><Button type='submit'
                 onClick={update}
                 variant='contained'>Atnaujinti</Button></div>
